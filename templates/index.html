@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .d-btn:hover {
+        background-color: rgb(155, 199, 210, 0.8) !important;
+    }
+
+    @font-face {
+        font-family: disney;
+        src: url(/static/WaltDisney-Font.woff);
+    }
+</style>
+
+<div style="height: 100vh; background-image: url('/static/disney_wallpaper0.jpg');">
+    <div class="d-flex justify-content-center" style="height: 90%;">
+        <embed style="margin-top: 5.5rem; border-radius: 0.5rem; box-shadow: 1rem;" src="/static/disney_castle.gif">
+        <a class="btn btn-dark d-flex justify-content-center d-btn"
+            style="font-family: disney; position: absolute; margin-top: 33rem; font-size: 1.8rem; background-color: rgb(49, 112, 155, 0.7); border-style: none;"
+            href="{% url 'articles:index' %}">Welcome
+            Disneyland</a>
+    </div>
+</div>
+{% endblock %}
