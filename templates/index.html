@@ -1,15 +1,35 @@
-{% extends 'base.html' %}
-{% block content %}
-<style>
-    .d-btn:hover {
-        background-color: rgb(155, 199, 210, 0.8) !important;
-    }
+{% load static %}
 
-    @font-face {
-        font-family: disney;
-        src: url(/static/WaltDisney-Font.woff);
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+        crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="/static/castle.png" sizes="16x16">
+    <style>
+        .d-btn:hover {
+            background-color: rgb(155, 199, 210, 0.8) !important;
+        }
+
+        @font-face {
+            font-family: disney;
+            src: url(/static/WaltDisney-Font.woff);
+        }
+    </style>
+    <title>Disney</title>
+</head>
 
 <div style="height: 100vh; background-image: url('/static/disney_wallpaper0.jpg');">
     <div class="d-flex justify-content-center" style="height: 90%;">
@@ -20,4 +40,5 @@
             Disneyland</a>
     </div>
 </div>
-{% endblock %}
+
+</html>
