@@ -19,32 +19,19 @@
         integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
         crossorigin="anonymous"></script>
     <style>
-        * {
-            font-family: "Noto Sans KR", sans-serif;
-        }
-
         .back {
-            background-image: url('./그림1.png');
+            background-image: url('/static/그림1.png');
         }
 
         @font-face {
-            font-family: 'ONE-Mobile-POP';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'SDSamliphopangche_Basic';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
+            font-family: disney;
+            src: url(/static/WaltDisney-Font.woff);
         }
     </style>
     <title>Disney</title>
 </head>
 
-<body>
+<body class="back">
 
     {% block content %}{% endblock content %}
 
