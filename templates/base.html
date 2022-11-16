@@ -26,14 +26,38 @@
         }
 
         @font-face {
-            font-family: disney;
+            font-family: 'disney';
             src: url(/static/WaltDisney-Font.woff);
+        }
+
+        @font-face {
+            font-family: 'rabbit';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
     </style>
     <title>Disney</title>
 </head>
 
 <body class="back">
+    <nav class="navbar navbar-expand-sm justify-content-center p-0" style="background-color: rgb(255,255,255,0.8);">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand p-0" href="#"><img src="/static/logo.png" alt="" style="height: 2.7rem;"></a>
+            <div>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                            style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Signup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"
+                            style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Signin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     {% block content %}{% endblock content %}
 
