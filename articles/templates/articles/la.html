@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-center mt-4">
+    <video style="height: 55vh" autoplay controls loop muted src="/static/la.mp4"></video>
+    <br>
+</div>
+<h1 class="text-center mt-2" style="font-family: disney; font-size: 100px; color: dimgrey;">Los Angeles Disneyland
+</h1>
+<hr style="width: 1270px; margin-left: 70px;">
+<div class="d-flex"
+    style="margin-top: 60px; margin-bottom: 60px; justify-content: space-between; margin-left: 70px; margin-right: 70px;">
+    <article>
+        <h1>환상의 나라 LA 디즈니랜드</h1>
+        <p>새롭게 맞이하는 50주년를 맞아 디즈니랜드가 새 단장을 합니다!</p>
+        <div class="d-flex">
+            <embed src="/static/index1.gif" type="">
+            <embed src="/static/index2.gif" type="">
+            <embed src="/static/index3.gif" type="">
+            <embed src="/static/index4.gif" type="">
+        </div>
+
+    </article>
+    <aside>
+        <div class="text-center" style="margin-top: 10rem; width: 320px; height: 257px; box-shadow:0 0 20px rgb(0 0 0 / 5%); border-radius: 10px; background-color: 	
+            rgb(255,255,255, 0.6);">
+            <div>
+                <div
+                    style="padding-top: 20px; padding-bottom: 20px; font-family: rabbit; font-size: 40px; color: dimgray;">
+                    1Day 티켓
+                </div>
+            </div>
+            <div>
+                <a class="btn btn-primary mb-3"
+                    style="text-align: center; width: 272px; height: 48px; font-family: rabbit;" href=""><i
+                        class="bi bi-ticket-perforated"></i> <span class="fs-4">티켓
+                        예매</span></a>
+            </div>
+            <div>
+                <a class="btn btn-primary"
+                    style="text-align: center; width: 272px; height: 48px; font-family: 'rabbit';" href=""><i
+                        class="bi bi-heart"></i> <span class="fs-4">찜하기</span></a>
+            </div>
+        </div>
+    </aside>
+</div>
+<hr style="width: 1270px; margin-left: 70px;">
+<div style="margin-top: 40px; margin-bottom: 40px; margin-left: 70px; margin-right: 70px;">
+    <h1>여행자 후기 사진</h1>
+    <div class="d-flex" style="margin-top: 30px; justify-content: space-evenly;">
+        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
+                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
+        </div>
+        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
+                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
+        </div>
+        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
+                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
+        </div>
+    </div>
+</div>
+<hr style="width: 1270px; margin-left: 70px;">
+<div style="margin-top: 40px; margin-bottom: 40px; margin-left: 70px; margin-right: 70px;">
+    <h1>후기 <span>24개</span></h1>
+</div>
+{% endblock %}
