@@ -2,11 +2,25 @@
 {% block content %}
 {% load django_bootstrap5 %}
 
-<h1>회원가입</h1>
-<form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="OK" %}
-</form>
+<style>
+    .s-btn:hover {
+        background-color: rgb(56, 126, 178, 0.8) !important;
+    }
+</style>
 
+<div class="d-flex justify-content-center">
+    <div class="d-flex" style="margin-top: 3rem; flex-direction: column; align-content: center; width: 70vh;">
+        <div class="text-center mb-4">
+            <h1 style="font-family: disney; font-size: 50px;">Enjoy DisneyLand</h1>
+        </div>
+        <form action="" method="POST" style="font-family: basic;">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="text-center" style="margin-top: 2rem;">
+                <input class="btn btn-primary s-btn" type="submit"
+                    style="background-color: rgb(67, 158, 225, 0.8); border-style: none;" value="🎡 회원가입">
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
