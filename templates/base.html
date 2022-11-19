@@ -62,18 +62,29 @@
                     style="height: 2.7rem;"></a>
             <div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if request.user.is_anonymous %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:signup' %}"
                             style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"
+                        <a class="nav-link" href="{% url 'accounts:signin' %}"
                             style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Signin</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:signin' %}"
+                            style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">{{request.user}}님</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:signin' %}"
+                            style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Logout</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"
                             style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">Reviews</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
