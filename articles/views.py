@@ -8,3 +8,7 @@ def index(request):
 @login_required(login_url='/accounts/signin')
 def la(request):
     return render(request, 'articles/la.html')
+
+@login_required(login_url='/accounts/signin')
+def paris(request):
+    return render(request, 'articles/paris.html')
