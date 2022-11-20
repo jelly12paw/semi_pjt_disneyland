@@ -16,3 +16,7 @@ def paris(request):
 @login_required(login_url='/accounts/signin')
 def tokyo(request):
     return render(request, 'articles/tokyo.html')
+
+@login_required(login_url='/accounts/signin')
+def hk(request):
+    return render(request, 'articles/hk.html')
