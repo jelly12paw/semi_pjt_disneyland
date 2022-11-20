@@ -38,3 +38,7 @@ def signin(request):
         'form' : form
     }
     return render(request, 'accounts/signin.html', context)
+
+def logout(request):
+    auth_logout(request)
+    return redirect('/')
