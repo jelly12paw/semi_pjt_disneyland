@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('la/', views.la, name='la'),
     path('paris/', views.paris, name='paris'),
+    path('tokyo/', views.tokyo, name='tokyo'),
 ]
