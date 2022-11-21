@@ -2,16 +2,64 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-<h1>디테일페이지</h1>
-<h1>{{ review.pk }}</h1>
-{{ review.disney_name }}
-{{ review.content }}
-<img style="width: 400px; height: 300px;" src="{{ review.image.url }}" alt="">
+<style>
+    .u-btn:hover {
+        color: azure !important;
+    }
+</style>
 
-<p>
-    <a href="{% url 'articles:delete' review.pk %}">삭제하기</a>
-</p>
-<p>
-    <a href="{% url 'articles:update' review.pk %}">수정하기</a>
-</p>
+<div class="text-center mt-4">
+    <img style="width: 470px; height: 360px; border-radius: 5px;" src="{{ review.image.url }}" alt="">
+</div>
+<div class="d-flex justify-content-center mt-3">
+    <div class="mt-2 me-2">
+        {% if review.grade == 1 %}
+        <img src="/static/star1.png" alt="" style="height: 50px; width: 50px;">
+        <!-- <p class="text-center fs-5 p-0">⭐</p> -->
+        {% elif review.grade == 2 %}
+        <img src="/static/star2.png" alt="" style="height: 50px; width: 50px;">
+        <!-- <p class="text-center fs-5 p-0">⭐⭐</p> -->
+        {% elif review.grade == 3 %}
+        <img src="/static/star3.png" alt="" style="height: 50px; width: 50px;">
+        <!-- <p class="text-center fs-5 p-0">⭐⭐⭐</p> -->
+        {% elif review.grade == 4 %}
+        <img src="/static/star4.png" alt="" style="height: 50px; width: 50px;">
+        <!-- <p class="text-center fs-5 p-0">⭐⭐⭐⭐</p> -->
+        {% else %}
+        <img src="/static/star5.png" alt="" style="height: 50px; width: 50px;">
+        <!-- <p class="text-center fs-5 p-0">⭐⭐⭐⭐⭐</p> -->
+        {% endif %}
+    </div>
+    <h1 style="font-family: disney; font-size: 50px;">{{ review.disney_name }}</h1>
+</div>
+<div class="text-center mt-3 mb-3" style="margin-left: 400px; margin-right: 400px;">
+    <p style="font-family: basic;">{{ review.content }}</p>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="me-3" style="font-family: welcome;">{{ review.user.username }}</div>
+    <div style="font-family: welcome; color: dimgrey;">방문일 : {{ review.visited_at|date:'Y-m-d' }}</div>
+</div>
+{% if user.is_authenticated and review.user == request.user %}
+<div class="d-flex justify-content-center mt-2">
+    <p class="me-3">
+        <a class="btn btn-outline-success fw-bold" style="margin-top: 10px; font-family: basic; font-size: 14px;"
+            href="{% url 'articles:reindex' %}">돌아가기</a>
+    </p>
+    <p class="me-3">
+        <a class="btn btn-outline-warning fw-bold u-btn" style="margin-top: 10px; font-family: basic; font-size: 14px;"
+            href="{% url 'articles:update' review.pk %}">수정</a>
+    </p>
+    <p>
+        <a class="btn btn-outline-danger fw-bold" style="margin-top: 10px; font-family: basic; font-size: 14px;"
+            href="{% url 'articles:delete' review.pk %}">삭제</a>
+    </p>
+</div>
+{% else %}
+<div class="d-flex justify-content-center mt-2">
+    <p class="me-3">
+        <a class="btn btn-outline-success fw-bold" style="margin-top: 10px; font-family: basic; font-size: 14px;"
+            href="{% url 'articles:reindex' %}">돌아가기</a>
+    </p>
+</div>
+{% endif %}
 {% endblock %}
