@@ -21,7 +21,7 @@ def la(request):
         grade = round(*grade_mean.values(), 1)
     else:
         grade = 0.0
-        
+
     page = request.GET.get('page', '1')
     paginator = Paginator(reviews, 3)
     posts = paginator.get_page(page)
@@ -127,6 +127,23 @@ def create(request):
         'disney_name': request.GET.get('disney_name')
     }
     return render(request, 'articles/reform.html', context)
+
+def update(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST, request.FILES, instance=review)
+        if review_form.is_valid():
+            review_form.save()
+            messages.success(request, '수정되었습니다:)')
+            return redirect('articles:detail', review.pk)
+    else:
+        review_form = ReviewForm(instance=review)
+
+    context = {
+        'review_form' : review_form
+    }
+
+    return render(request, 'articles/update.html', context)
 
 def delete(request, pk):
     Review.objects.get(pk=pk).delete()
