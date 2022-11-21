@@ -77,7 +77,7 @@
             {% endif %}
             <div class="card-body pb-0">
                 <p class="card-text text-center mt-2 fw-bold" style="font-family: basic;">{{ review.disney_name }}</p>
-                <p class="text-center mb-0" style="font-family: basic; font-size: 12px;">{{ review.visited_at }}</p>
+                <p class="text-center mb-0" style="font-family: welcome; font-size: 12px;">{{ review.visited_at }}</p>
                 {% if review.grade == 1 %}
                 <p class="text-center fs-5 p-0">⭐</p>
                 {% elif review.grade == 2 %}
@@ -91,7 +91,7 @@
                 {% endif %}
             </div>
             <div class="m-2 text-center">
-                <a href="" class="btn btn-outline-primary m-btn fw-bold"
+                <a href="{% url 'articles:detail' review.pk %}" class="btn btn-outline-primary m-btn fw-bold"
                     style="width: 30%; font-family: basic; color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8); font-size: 13px;">더보기</a>
             </div>
         </div>

@@ -10,5 +10,7 @@ urlpatterns = [
     path('tokyo/', views.tokyo, name='tokyo'),
     path('hk/', views.hk, name='hk'),
     path('reindex/', views.reindex, name='reindex'),
-    path('create/', views.create, name='create'),    
+    path('create/', views.create, name='create'),
+    path('<int:pk>/', views.detail, name='detail'), 
+    path('delete/<int:pk>', views.delete, name='delete'),
 ]

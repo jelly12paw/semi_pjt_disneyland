@@ -63,50 +63,85 @@
 <div style="margin-top: 40px; margin-bottom: 40px; margin-left: 70px; margin-right: 70px;">
     <h1 style="font-family: 'welcome';">여행자 후기 사진</h1>
     <nav aria-label="Page navigation example">
-        <ul class="pagination d-flex" style="justify-content: flex-end;">
+        <ul class="pagination d-flex mb-0 mt-3" style="justify-content: flex-end;">
+            {% if posts.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous" style="color: rgb(67, 158, 225, 0.8);">
+                <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous"
+                    style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item"><a class="page-link " href="#"
-                    style="padding-top: 10px; font-size: 13.2px; color: rgb(67, 158, 225, 0.8); font-family: welcome;">1</a>
-            </li>
-            <li class="page-item"><a class="page-link " href="#"
-                    style="padding-top: 10px; font-size: 13.2px; color: rgb(67, 158, 225, 0.8); font-family: welcome;">2</a>
-            </li>
-            <li class="page-item"><a class="page-link " href="#"
-                    style="padding-top: 10px; font-size: 13.2px; color: rgb(67, 158, 225, 0.8); font-family: welcome;">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true" style="color: rgb(67, 158, 225, 0.8);">&raquo;</span>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+                    style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                    <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
+            {% endif %}
+            {% for page_number in posts.paginator.page_range %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link"
+                    style="padding-top: 10px; padding-bottom: 6.4px; font-size: 13.2px; background-color: white; border-color: rgb(67, 158, 225, 0.8); color: rgb(67, 158, 225, 0.8); font-family: welcome;"
+                    href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endfor %}
+            {% if posts.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next"
+                    style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+                    style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
     <div class="d-flex" style="margin-top: 30px; justify-content: space-evenly;">
-        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
-                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
+        {% for review in posts %}
+        {% if review.image %}
+        <div><img style="width: 330px; height: 230px; border-radius: 8px;" src="{{ review.image.url }}" alt="">
         </div>
-        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
-                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
-        </div>
-        <div><img style="width: 330px; height: 230px; border-radius: 8px;"
-                src="https://cdn.getyourguide.com/img/tour/624bf4ddc7bc0.jpeg/146.jpg" alt="">
-        </div>
+        {% endif %}
+        {% endfor %}
     </div>
 </div>
 <hr style="width: 1270px; margin-left: 70px;">
 <div style="margin-top: 40px; margin-bottom: 40px; margin-left: 70px; margin-right: 70px;">
-    <h1 style="font-family: 'welcome';">후기 <span style="color: goldenrod;">24</span></h1>
+    <h1 style="font-family: 'welcome';">후기 <span style="color: goldenrod;">{{ reviews.count }}</span></h1>
     <div class="d-flex mb-4" style="justify-content: center;">
         <div class="d-flex text-center justify-content-center me-3"
             style="flex-direction: column; border-radius: 10px; height: 165px; width: 217px; background-color: rgb(245, 245, 245, 0.8)">
-            <p style="margin-bottom: 0px; font-family: welcome; font-size: 3rem;">5.0</p>
+            <p style="margin-bottom: 0px; font-family: welcome; font-size: 3rem;">{{ grade }}</p>
             <div style="font-size: 1.4rem;">
+                {% if grade == 5 %}
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                     class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                {% elif grade >= 4.5 and grade < 5 %} <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                    {% elif grade >= 4 and grade < 4.5 %} <i class="bi bi-star-fill"></i><i
+                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        {% elif grade >= 3.5 and grade < 4 %} <i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-half"></i>
+                            {% elif grade >= 3 and grade < 3.5 %} <i class="bi bi-star-fill"></i><i
+                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                {% elif grade >= 2.5 and grade < 3 %} <i class="bi bi-star-fill"></i><i
+                                        class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                    {% elif grade >= 2 and grade < 2.5 %} <i class="bi bi-star-fill"></i><i
+                                            class="bi bi-star-fill"></i>
+                                        {% elif grade >= 1.5 and grade < 2 %} <i class="bi bi-star-fill">
+                                            </i><i class="bi bi-star-half"></i>
+                                            {% else %}
+                                            <i class="bi bi-star-fill"></i>
+                                            {% endif %}
+
             </div>
         </div>
         <div class="d-flex text-center justify-content-center"
@@ -118,25 +153,44 @@
     </div>
     <div>
         <div style="margin-top: 3rem;">
+            {% for review in reviews %}
             <div class="d-flex">
+                {% if review.grade == 1 %}
+                <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i></div>
+                {% elif review.grade == 2 %}
+                <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i></div>
+                {% elif review.grade == 3 %}
+                <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                {% elif review.grade == 4 %}
+                <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i><i
+                        class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                {% else %}
                 <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i><i
                         class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                         class="bi bi-star-fill"></i></div>
-                <div style="font-family: basic; margin-left: 10px; margin-top: 7px;">작성자</div>
+                {% endif %}
+
+                <div style="font-family: basic; margin-left: 10px; margin-top: 7px;">{{ review.user.username }}</div>
             </div>
-            <div style="font-family: welcome; color: lightgrey; font-size: 14px; margin-top: 5px;">2022-11-11</div>
+            <div style="font-family: welcome; color: lightgrey; font-size: 14px; margin-top: 5px;">
+                방문일 : {{review.visited_at|date:"Y-m-d"}}　작성일 : {{ review.created_at|date:"Y-m-d H:m:s" }}
+            </div>
         </div>
-        <div style="font-family: basic; margin-top: 20px; font-size: 1.2rem;">
-            디즈니랜드 가신다면 어드밴처랑 파크 두 곳 다 이용할 수 있는 입장권 사는걸 추천드립니다~ 왜냐면 어드밴처 쪽은 일찍 문을 닫거든요! (2022년10월기준) 어드밴처 먼저 갔다가 파크로 넘어가서
-            신나게 놀고 왔습니다. 기구는 둘 다 재밌어요~ 그리구 디즈니랜드 어플 까셔서 로그인하고 여기서 구매한 티켓 따로 등록하셔야 입장가능해요!~
-        </div>
+        <div style="font-family: basic; margin-top: 20px; font-size: 1.2rem;">{{ review.content }}</div>
+        {% if user.is_authenticated and review.user == request.user %}
         <div>
             <a class="btn btn-outline-warning fw-bold" style="margin-top: 10px; font-family: basic; font-size: 14px;"
                 href="">수정</a>
             <a class="btn btn-outline-danger fw-bold" style="margin-top: 10px; font-family: basic; font-size: 14px;"
                 href="">삭제</a>
         </div>
+        {% endif %}
         <hr style="width: 1270px;">
+        {% empty %}
+        <h2 style="font-family: 'welcome';">작성된 후기가 없습니다😭</h1>
+            {% endfor %}
     </div>
 </div>
 {% endblock %}
