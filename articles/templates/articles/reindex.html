@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .m-btn:hover {
+        background-color: rgb(67, 158, 225, 0.8) !important;
+        color: azure !important;
+        border-color: rgb(67, 158, 225, 0.8) !important;
+    }
+
+    .r-btn:hover {
+        color: azure !important;
+    }
+</style>
+
+<div class="text-center mt-4">
+    <img style="width: 50vh;" src="/static/basicimg.png" alt="">
+    <a href="{% url 'articles:create' %}" class="btn btn-outline-warning r-btn"
+        style="margin-top: 6rem; margin-left: 8px;"><i class="fa-solid fa-pen-to-square"></i> 리뷰
+        작성</a>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="row row-col-4 mb-3"
+        style="justify-content: space-evenly; background-color: rgb(250, 250, 250, 0.7); width: 90%; border-radius: 5px;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination d-flex mb-0 mt-3" style="justify-content: flex-end;">
+                {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous"
+                        style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+                        style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for page_number in posts.paginator.page_range %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link"
+                        style="padding-top: 10px; padding-bottom: 6.4px; font-size: 13.2px; background-color: white; border-color: rgb(67, 158, 225, 0.8); color: rgb(67, 158, 225, 0.8); font-family: welcome;"
+                        href="?page={{ page_number }}">{{ page_number }}</a>
+                </li>
+                {% endfor %}
+                {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next"
+                        style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+                        style="color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8);">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% for review in posts %}
+        <div class="card m-5" style="padding-left: 0px; padding-right: 0px; width: 20rem; box-shadow:2px 2px 8px gray;">
+            <div class="card-header text-center"
+                style="font-family: welcome; background-color: rgb(67, 158, 225, 0.5); color: azure;">
+                {{review.user.username }}</div>
+            {% if review.image %}
+            <img src="{{ review.image.url }}" class="card-img-top w-100" alt="..."
+                style="height: 250px; object-fit: contain;">
+            {% else %}
+            <img src="/static/imgnone.png" class="card-img-top" alt="..."
+                style="height: 250px; object-fit: contain; width: 318px;">
+            {% endif %}
+            <div class="card-body pb-0">
+                <p class="card-text text-center mt-2 fw-bold" style="font-family: basic;">{{ review.disney_name }}</p>
+                <p class="text-center mb-0" style="font-family: basic; font-size: 12px;">{{ review.visited_at }}</p>
+                {% if review.grade == 1 %}
+                <p class="text-center fs-5 p-0">⭐</p>
+                {% elif review.grade == 2 %}
+                <p class="text-center fs-5 p-0">⭐⭐</p>
+                {% elif review.grade == 3 %}
+                <p class="text-center fs-5 p-0">⭐⭐⭐</p>
+                {% elif review.grade == 4 %}
+                <p class="text-center fs-5 p-0">⭐⭐⭐⭐</p>
+                {% else %}
+                <p class="text-center fs-5 p-0">⭐⭐⭐⭐⭐</p>
+                {% endif %}
+            </div>
+            <div class="m-2 text-center">
+                <a href="" class="btn btn-outline-primary m-btn fw-bold"
+                    style="width: 30%; font-family: basic; color: rgb(67, 158, 225, 0.8); border-color: rgb(67, 158, 225, 0.8); font-size: 13px;">더보기</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

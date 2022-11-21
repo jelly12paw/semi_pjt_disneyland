@@ -12,19 +12,12 @@ class Review(models.Model):
         ('Tokyo', 'Tokyo'),
         ('Hong Kong', 'Hong Kong'),
     ]
-    disney_name = models.CharField(max_length=20, choices=di_names)
-    content = models.TextField()
-    grades = [      
-        ('1', '★'),
-        ('2', '★★'),
-        ('3', '★★★'),
-        ('4', '★★★★'),
-        ('5', '★★★★★'),
-    ]
-    grade = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], choices=grades)
+    disney_name = models.CharField('🏰 방문한 디즈니랜드', max_length=20, choices=di_names)
+    content = models.TextField('✍🏻 후기 작성')
+    grade = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    visited_at = models.DateField('방문날짜', null=True)
+    visited_at = models.DateField('📆 방문 날짜', null=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews')
     image = ProcessedImageField(upload_to='images/', blank=True,
                             processors=[ResizeToFill(1200, 960)],
