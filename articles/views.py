@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_safe
-from .models import Review
-from .forms import ReviewForm
+from .models import Review, Comment
+from .forms import ReviewForm, CommentForm
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.db.models import Avg, Min, Max, Count, F, Sum, Func
-import math
+from django.db.models import Avg
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -152,11 +152,27 @@ def delete(request, pk):
 
 def detail(request, pk):
     review = get_object_or_404(Review, pk=pk)
-    # comment_form = CommentForm()
-    # template에 객체 전달
+    comment_form = CommentForm()
+
     context = {
         'review' : review,
-        # 'comments': review.comment_set.all(),
-        # 'comment_form': comment_form,
+        'comments': review.comment_set.all(),
+        'comment_form': comment_form,
     }
     return render(request, 'articles/detail.html', context)
+
+def comment_create(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.review = review
+        comment.user = request.user
+        comment.save()
+    return redirect("articles:detail", review.pk)
+
+def comment_delete(request, comment_pk, pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.user.is_authenticated and request.user == comment.user:
+        comment.delete()
+        return redirect("articles:detail", pk)

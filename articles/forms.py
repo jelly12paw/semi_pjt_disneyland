@@ -1,5 +1,5 @@
 from django import forms
-from .models import Review
+from .models import Review, Comment
 from django.forms.widgets import DateInput, Textarea, TextInput, FileInput
 from imagekit.models import ProcessedImageField
 
@@ -25,4 +25,13 @@ class ReviewForm(forms.ModelForm):
         widgets = {
             'visited_at': DateInput(attrs={'type': 'date'}),
             'content': Textarea(attrs={'rows':3})
+        }
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment 
+        fields = ['content',]
+        widgets = {
+            'content': Textarea(attrs={'rows':1})
         }
