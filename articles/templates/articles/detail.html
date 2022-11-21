@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+<h1>디테일페이지</h1>
+<h1>{{ review.pk }}</h1>
+{{ review.disney_name }}
+{{ review.content }}
+<img style="width: 400px; height: 300px;" src="{{ review.image.url }}" alt="">
+
+<p>
+    <a href="{% url 'articles:delete' review.pk %}">삭제하기</a>
+</p>
+
+{% endblock %}
