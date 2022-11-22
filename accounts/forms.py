@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Authenti
 # from .models import User
 from django.contrib.auth import get_user_model
 from django import forms
+from .models import Profile
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -35,3 +36,8 @@ class CustomAuthenticationForm(AuthenticationForm):
     username = UsernameField(
         label ='아이디',
         widget=forms.TextInput(attrs={"autofocus": True}))
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

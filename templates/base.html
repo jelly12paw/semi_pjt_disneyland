@@ -73,7 +73,7 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:signin' %}"
+                        <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}"
                             style="font-family: 'rabbit'; font-size: 1.3rem; padding-top: 14px;">{{request.user}}님</a>
                     </li>
                     <li class="nav-item">

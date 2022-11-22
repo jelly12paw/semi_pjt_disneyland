@@ -7,10 +7,8 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserChangeForm, CustomUserCreationForm, CustomAuthenticationForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm, CustomAuthenticationForm, ProfileForm
 # Create your views here.
-def index(request):
-    return render(request, 'accounts/index.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -41,4 +39,39 @@ def signin(request):
 
 def logout(request):
     auth_logout(request)
+    return redirect('/')
+
+def detail(request, pk):
+    user = get_user_model().objects.get(pk=pk)
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.user = request.user 
+            profile.save()
+
+
+            if user.profile_set.all().count() > 1:
+                user.profile_set.all()[0].delete()
+                
+            return redirect('accounts:detail', pk)
+    else:
+        profile_form = ProfileForm()
+    
+    if user.profile_set.all().count() == 0:
+        profile_image = None
+    else:
+        profile_image = user.profile_set.all()[0]
+    context = {
+        'user' : user, 
+        'profile_form' : profile_form,
+        'profile_image' : profile_image,
+    }
+    return render(request, 'accounts/detail.html', context)
+
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+
     return redirect('/')

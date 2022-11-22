@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<section style="min-height:100vh;">
+    {% if user.gender == '여성' %}
+    <div class="m-4 py-3 d-flex justify-content-center align-items-center"
+        style="flex-direction: column; background-color: rgb(255, 197, 224, 0.5); border-radius: 1rem;">
+        {% else %}
+        <div class="m-4 py-3 d-flex justify-content-center align-items-center"
+            style="flex-direction: column; background-color: rgb(67, 158, 225, 0.5); border-radius: 1rem;">
+            {% endif %}
+            <div class="d-flex" style="flex-direction: row;">
+                <div class="me-4">
+                    {% if user.profile_set.all.count > 0 %}
+                    <img src="{{ profile_image.image.url }}" alt=""
+                        style="height: 20vh; width: 20vh; border-radius: 100%; border-style: double; border-color: dimgrey;">
+                    {% else %}
+                    <img src="/static/imgnone.png" alt=""
+                        style="height: 20vh; width: 20vh; border-radius: 100%; border-style: double; border-color: dimgrey;">
+                    {% endif %}
+                </div>
+                <div style="margin-top: 40px;">
+                    <p style="font-family: 'rabbit'; font-size: 50px; color: dimgrey;">{{user.username}}<span
+                            style="font-family: rabbit; font-size: 30px; color: dimgrey;"> 님</span></p>
+                </div>
+            </div>
+            <div class="mt-4 d-flex" style="flex-direction: row;">
+                <small class="me-3" style="font-family: welcome; color: dimgrey;">최근 로그인 : {{ user.last_login }}</small>
+                <small style="font-family: welcome; color: dimgrey;">성별: {{ user.gender }}</small>
+            </div>
+            {% if request.user == user %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="d-flex mt-2" style="flex-direction: row;">
+                    <div style="font-family: 'basic'; width: 50vh;">{% bootstrap_form profile_form %}</div>
+                    <div style="font-family: 'basic'; margin-top: 2rem; margin-left: 10px;">
+                        {% bootstrap_button button_type="submit" button_class="btn-outline-dark" content="프로필 수정" %}
+                    </div>
+                    <a href="" class="btn btn-outline-dark"
+                        style=" height: 2.4rem; font-family: 'basic'; margin-top: 2rem; margin-left: 10px;">회원정보
+                        수정</a>
+                    {% if request.user == user %}
+                    <a href="{% url 'accounts:delete' %}"
+                        style=" height: 2.4rem; font-family: 'basic'; margin-top: 2rem; margin-left: 10px;"
+                        class="btn btn-outline-danger">회원탈퇴</a>
+                    {% endif %}
+                </div>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class='px-5'>
+            <div class="row row-cols-2 g-5 text-center" style="margin-top: 3rem;">
+                <div class='col'>
+                    <h3 style="font-family: 'welcome';">작성한 글
+                        <span class='fs-2' style="color: goldenrod;"> {{ user.review_set.all.count }}</span>
+                    </h3>
+                    {% for review in user.review_set.all %}
+                    <div class="card border-dark mb-3 mx-auto w-100" style="height:110px;">
+                        <div class="card-header">
+
+                            <strong class="me-auto" style="font-family: 'rabbit';">{{user.username}}</strong>
+                            <small class="text-muted" style="font-family: welcome;"> {{ review.created_at }}</small>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'articles:detail' review.pk %}" class='text-decoration-none'
+                                style="font-family: basic; color: black;">
+                                <h5 class="card-title mt-2">{{ review.content|truncatechars:20 }}
+                                </h5>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class='col'>
+                    <h3 style="font-family: 'welcome';">작성한 댓글
+                        <span class="fs-2" style="color: goldenrod;">{{ user.comment_set.all.count }}</span>
+                    </h3>
+                    {% for comment in user.comment_set.all %}
+                    <div class="card border-dark mb-3 mx-auto w-100" style="height:110px;">
+                        <div class="card-header">
+                            <strong class="me-auto" style="font-family: 'rabbit';">{{ user.username}}</strong>
+                            <small class="text-muted" style="font-family: welcome;">{{ comment.created_at }}</small>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'articles:detail' comment.review.pk %}" class='text-decoration-none'
+                                style='color: black; font-family: basic;'>
+                                <h5 class="card-title mt-2">{{ comment.content|truncatechars:20 }}
+                                </h5>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+</section>
+
+{% endblock content %}
