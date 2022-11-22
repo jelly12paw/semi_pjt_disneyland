@@ -159,8 +159,8 @@
         </div>
     </div>
     <div>
+        {% for review in reviews %}
         <div style="margin-top: 3rem;">
-            {% for review in reviews %}
             <div class="d-flex">
                 {% if review.grade == 1 %}
                 <div style="color: lightskyblue; font-size: 1.2rem;"><i class="bi bi-star-fill"></i></div>
