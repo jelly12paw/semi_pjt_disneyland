@@ -17,7 +17,7 @@ def la(request):
     
     reviews = Review.objects.filter(disney_name='Los Angeles').order_by('-pk')
     grade_mean = Review.objects.filter(disney_name='Los Angeles').aggregate(grade=Avg('grade'))
-    if grade_mean:
+    if reviews:
         grade = round(*grade_mean.values(), 1)
     else:
         grade = 0.0
@@ -38,7 +38,7 @@ def la(request):
 def paris(request):
     reviews = Review.objects.filter(disney_name='Paris').order_by('-pk')
     grade_mean = Review.objects.filter(disney_name='Paris').aggregate(grade=Avg('grade'))
-    if grade_mean:
+    if reviews:
         grade = round(*grade_mean.values(), 1)
     else:
         grade = 0.0
@@ -56,13 +56,13 @@ def paris(request):
 
 @login_required(login_url='/accounts/signin')
 def tokyo(request):
-    reviews = Review.objects.filter(disney_name='Tokyo').order_by('-pk')
-    grade_mean = Review.objects.filter(disney_name='Tokyo').aggregate(grade=Avg('grade'))
-    if grade_mean:
+    reviews = Review.objects.filter(disney_name='tokyo').order_by('-pk')
+    grade_mean = Review.objects.filter(disney_name='tokyo').aggregate(grade=Avg('grade'))
+    if reviews:
         grade = round(*grade_mean.values(), 1)
     else:
         grade = 0.0
-
+    
     page = request.GET.get('page', '1')
     paginator = Paginator(reviews, 3)
     posts = paginator.get_page(page)
@@ -70,6 +70,7 @@ def tokyo(request):
     context= {
         'reviews' : reviews,
         'grade' : grade,
+        'grade_meam' : grade_mean,
         'posts' : posts,
     }
     return render(request, 'articles/tokyo.html', context)

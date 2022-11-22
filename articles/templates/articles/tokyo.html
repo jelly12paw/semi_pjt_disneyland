@@ -114,11 +114,19 @@
 </div>
 <hr style="width: 1270px; margin-left: 70px;">
 <div style="margin-top: 40px; margin-bottom: 40px; margin-left: 70px; margin-right: 70px;">
+    {% if reviews %}
     <h1 style="font-family: 'welcome';">후기 <span style="color: goldenrod;">{{ reviews.count }}</span></h1>
+    {% else %}
+    <h1 style="font-family: 'welcome';">후기 <span style="color: goldenrod;">0</span></h1>
+    {% endif %}
     <div class="d-flex mb-4" style="justify-content: center;">
         <div class="d-flex text-center justify-content-center me-3"
             style="flex-direction: column; border-radius: 10px; height: 165px; width: 217px; background-color: rgb(245, 245, 245, 0.8)">
+            {% if reviews %}
             <p style="margin-bottom: 0px; font-family: welcome; font-size: 3rem;">{{ grade }}</p>
+            {% else %}
+            <p style="margin-bottom: 0px; font-family: welcome; font-size: 3rem;">0.0</p>
+            {% endif %}
             <div style="font-size: 1.4rem;">
                 {% if grade == 5 %}
                 <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
